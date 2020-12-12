@@ -4,9 +4,37 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
+    <%= f.label :"First Name" %><br />
+    <%= f.email_field :first_name, autocomplete: "first_name" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :"Last Name" %><br />
+    <%= f.email_field :last_name, autocomplete: "family_name" %>
+  </div>
+
+  <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
+
+  <div class="field">
+    <%= f.label :address %><br />
+    <%= f.text_area :address, autocomplete: "address" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :"Phone Number" %><br />
+    <%= f.text_field :phone, autocomplete: "phone" %>
+  </div>
+
+  <% usertype = f.object.user_type %>
+  <% if usertype == "Vender" %>
+    <div class="field">
+      <%= f.label :"Shop Name" %><br />
+      <%= f.text_field :shop %>
+    </div>
+  <% end %>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
