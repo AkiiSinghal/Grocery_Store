@@ -3,6 +3,10 @@
   <%= @item.name %>
 </p>
 
+<% (0...@item.images.count).each do |image| %>
+  <%= image_tag(@item.thumbnail(image)) %>
+<% end %>
+
 <p>
   <strong>Description:</strong>
   <%= @item.description %>

@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Image</th>
       <th>Description</th>
       <th>Price</th>
       <th>Quantity</th>
@@ -16,6 +17,7 @@
       <% if item.user == current_user %>
         <tr>
           <td><%= item.name %></td>
+          <td><%= image_tag(item.thumbnail(0)) %></td>
           <td><%= item.description %></td>
           <td><%= item.price %></td>
           <td><%= item.quantity %></td>
