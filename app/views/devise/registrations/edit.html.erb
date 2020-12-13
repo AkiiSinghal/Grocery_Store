@@ -5,17 +5,17 @@
 
   <div class="field">
     <%= f.label :"First Name" %><br />
-    <%= f.email_field :first_name, autocomplete: "first_name" %>
+    <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name" %>
   </div>
   
   <div class="field">
     <%= f.label :"Last Name" %><br />
-    <%= f.email_field :last_name, autocomplete: "family_name" %>
+    <%= f.text_field :last_name, autocomplete: "family_name" %>
   </div>
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autocomplete: "email" %>
   </div>
 
   <div class="field">
@@ -29,7 +29,7 @@
   </div>
 
   <% usertype = f.object.user_type %>
-  <% if usertype == "Vender" %>
+  <% if usertype == "Vendor" %>
     <div class="field">
       <%= f.label :"Shop Name" %><br />
       <%= f.text_field :shop %>

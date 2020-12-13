@@ -1,0 +1,90 @@
+class ItemsController < ApplicationController
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :correct_user, except: []
+  before_action :correct_user_item, except: [:index, :new, :create]
+
+  # GET /items
+  # GET /items.json
+  def index
+    @items = Item.all
+  end
+
+  # GET /items/1
+  # GET /items/1.json
+  def show
+  end
+
+  # GET /items/new
+  def new
+    @item = Item.new
+  end
+
+  # GET /items/1/edit
+  def edit
+  end
+
+  # POST /items
+  # POST /items.json
+  def create
+    @item = Item.new(item_params)
+
+    respond_to do |format|
+      if @item.save
+        format.html { redirect_to @item, notice: 'Item was successfully created.' }
+        format.json { render :show, status: :created, location: @item }
+      else
+        format.html { render :new }
+        format.json { render json: @item.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /items/1
+  # PATCH/PUT /items/1.json
+  def update
+    respond_to do |format|
+      if @item.update(item_params)
+        format.html { redirect_to @item, notice: 'Item was successfully updated.' }
+        format.json { render :show, status: :ok, location: @item }
+      else
+        format.html { render :edit }
+        format.json { render json: @item.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /items/1
+  # DELETE /items/1.json
+  def destroy
+    @item.destroy
+    respond_to do |format|
+      format.html { redirect_to items_url, notice: 'Item was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def correct_user
+    usertype = current_user.user_type
+    unless
+      authenticate_user! &&
+      usertype == "Vendor"
+      redirect_to root_url, notice: "Not Authorized To Access Items"
+    end
+  end
+
+  def correct_user_item
+    @item = current_user.item.find_by(id: params[:id])
+    redirect_to root_url, notice: "Not Authorized To Access This Item" if @item.nil?
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_item
+      @item = Item.find(params[:id])
+    end
+
+    # Only allow a list of trusted parameters through.
+    def item_params
+      params.require(:item).permit(:name, :description, :price, :quantity, :user_id)
+    end
+end
