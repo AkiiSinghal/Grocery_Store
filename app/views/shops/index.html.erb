@@ -1,0 +1,21 @@
+<h1>Shops</h1>
+
+<% @shops.each do |shop| %>
+    <a href="/shops/<%= shop.id %>">
+        <%= shop.shop %>
+    </a>
+<% end %>
+<br/><br/>
+
+<% if user_signed_in? %>
+    <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class:"nav-link" %>
+    <%= link_to 'Edit Profile', edit_user_registration_path, class:"nav-link" %>
+    <% usertype = current_user.user_type %>
+    <% if usertype == "Vendor" %>
+        <%= link_to 'Items', items_path %>
+        <%= link_to 'Add Item', new_item_path %>
+    <% end %>
+<% else %>
+    <%= link_to 'Sign Up', new_user_registration_path, class:"nav-link" %>
+    <%= link_to 'Sign In', new_user_session_path, class:"nav-link" %>
+<% end %>

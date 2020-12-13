@@ -1,0 +1,23 @@
+<h1>Items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Image</th>
+      <th>Description</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @items.each do |item| %>
+        <tr>
+          <td><a href="/shops/<%= item.user_id %>/<%= item.id %>"><%= item.name %></a></td>
+          <td><%= image_tag(item.thumbnail(0)) %></td>
+          <td><%= item.description %></td>
+          <td><%= item.price %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
