@@ -67,7 +67,8 @@ class ItemsController < ApplicationController
     usertype = current_user.user_type
     unless
       authenticate_user! &&
-      usertype == "Vendor"
+      usertype == "Vendor" &&
+      current_user.admin == false
       redirect_to root_url, notice: "Not Authorized To Access Items"
     end
   end
