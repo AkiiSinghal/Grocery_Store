@@ -1,0 +1,59 @@
+<h1>Edit Item</h1>
+ 
+<%= form_with model: @item do |form| %>
+  <% if @item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+      <ul>
+        <% @item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.text_field :name, type: :hidden %>
+
+  <%= form.text_area :description, style: "#{'display:none'}" %>
+  
+  <%= form.text_field :price, type: :hidden %>
+
+  <%= form.number_field :user_id, type: :hidden %>
+  
+  <%= form.number_field :item_id, type: :hidden %>
+
+    <table>
+    <thead>
+        <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th colspan="1"></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+        <td><%= :name %></td>
+        <td><%= :description %></td>
+        <td>
+            <div class="field">
+                <%= form.label :quantity %>
+                <%= form.number_field :quantity %>
+            </div>
+        </td>
+        <td><%= :price %></td>
+        <td>
+            <div class="actions">
+                <%= form.submit :Update %>
+            </div>
+        </td>
+        </tr>
+    </tbody>
+    </table>
+
+<% end %>
+<br/>
+<%= link_to 'Back', cart_items_path %>

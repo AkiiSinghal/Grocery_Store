@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: []
   before_action :correct_user, except: []
   before_action :correct_user_item, except: [:index, :new, :create]
 
@@ -66,7 +67,6 @@ class ItemsController < ApplicationController
   def correct_user
     usertype = current_user.user_type
     unless
-      authenticate_user! &&
       usertype == "Vendor" &&
       current_user.admin == false
       redirect_to root_url, notice: "Not Authorized To Access Items"
