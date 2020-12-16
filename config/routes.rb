@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get "/shops/:user_id", to: 'shops#items'
   get "/shops/:user_id/:id", to: 'shops#show'
   get 'cart_items/add', as: 'add_cart_item'
+  get 'cart_items/buy', as: 'buy_cart_item'
   resources :cart_items
   #root 'home#index'
   devise_for :users, :controllers => {registrations: 'registrations'}

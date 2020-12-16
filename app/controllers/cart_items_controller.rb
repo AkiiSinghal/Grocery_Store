@@ -27,6 +27,26 @@ class CartItemsController < ApplicationController
     redirect_to session.delete(:return_to)
   end
 
+  def buy
+    @item = Item.find(params[:id])
+    itemid = @item.id
+    userid = current_user.id
+    price = @item.price
+    @cart_item = CartItem.where("user_id = #{userid} and item_id = #{itemid}")
+    if @cart_item.count == 0
+      name = @item.name
+      description = @item.description
+      quantity = 1
+      CartItem.create(:name=>name, :description=>description, :price=>price, :quantity=>quantity, :user_id=>userid, :item_id=>itemid)
+    else
+      @cart_item = @cart_item.first
+      @cart_item.quantity += 1
+      @cart_item.price += price
+      @cart_item.save
+    end
+    redirect_to cart_items_path
+  end
+
   def edit
     @item = CartItem.find(params[:id])
   end
