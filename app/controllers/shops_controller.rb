@@ -1,5 +1,10 @@
 class ShopsController < ApplicationController
   def index
+    if user_signed_in?
+      if current_user.admin
+        redirect_to admin_index_path
+      end
+    end
     @shops = User.select("id, shop").where("user_type = 'Vendor'").all
   end
 

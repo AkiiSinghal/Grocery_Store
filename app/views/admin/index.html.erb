@@ -1,0 +1,39 @@
+<h1>Orders</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Status</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @orders.each do |order| %>
+        <%= form_with model: order do |form| %>
+            <%= form.text_field :name, type: :hidden %>
+            <%= form.text_area :description, style: "#{'display:none'}" %>
+            <%= form.number_field :price, type: :hidden %>
+            <%= form.number_field :quantity, type: :hidden %>
+            <tr>
+                <td><%= order.name %></td>
+                <td><%= order.description %></td>
+                <td><%= order.quantity %></td>
+                <td><%= order.price %></td>
+                <td><%= form.select(:status, options_for_select([['Placed', 'Placed'], ['In Transit', 'In Transit'], ['Delivered', 'Delivered']], :selected => form.object.status)) %></td>
+                <td><%= form.submit :Update %></td>
+            </tr>
+            <%= form.number_field :user_id, type: :hidden %>
+            <%= form.number_field :item_id, type: :hidden %>
+        <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class:"nav-link" %>
+<%= link_to 'Edit Profile', edit_user_registration_path, class:"nav-link" %>

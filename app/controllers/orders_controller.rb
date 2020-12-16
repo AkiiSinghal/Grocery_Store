@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, except: []
-  before_action :correct_user, except: []
+  before_action :correct_user, except: [:update]
 
   def index
     @orders = Order.all
@@ -21,6 +21,13 @@ class OrdersController < ApplicationController
     end
   end
 
+  def update
+    @order = Order.find(params[:id])
+    if @order.update(order_params)
+      redirect_to admin_index_path
+    end
+  end
+
   def destroy
     @order = Order.find(params[:id])
     @order.destroy
@@ -36,4 +43,9 @@ class OrdersController < ApplicationController
       redirect_to root_url, notice: "Not Authorized To Access Cart"
     end
   end
+
+  private
+    def order_params
+      params.require(:order).permit(:name, :description, :price, :quantity, :status, :user_id, :item_id)
+    end
 end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :admin
   root 'shops#index'
   resources :items
   get "/shops/:user_id", to: 'shops#items'
