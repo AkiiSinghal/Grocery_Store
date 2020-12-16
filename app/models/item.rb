@@ -1,6 +1,7 @@
 class Item < ApplicationRecord
     belongs_to :user
     has_many :cart_item
+    has_many :order
     #has_one_attached: image
     has_many_attached :images
     validates :name, presence: true
