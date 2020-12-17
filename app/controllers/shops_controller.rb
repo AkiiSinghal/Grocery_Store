@@ -5,7 +5,7 @@ class ShopsController < ApplicationController
         redirect_to admin_index_path
       end
     end
-    @shops = User.select("id, shop").where("user_type = 'Vendor'").all
+    @shops = User.where("user_type = 'Vendor'").all
   end
 
   def items

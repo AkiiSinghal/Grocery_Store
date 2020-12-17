@@ -30,14 +30,32 @@
 
   <div class="field">
     <%= f.label :"User Type: " %>
-    <%= f.select(:user_type, options_for_select([['Customer', 'Customer'], ['Vendor', 'Vendor']])) %>
+    <%= f.select(:user_type, options_for_select([['Customer', 'Customer'], ['Vendor', 'Vendor']]), {}, {:onchange => "callMe(this.options[this.selectedIndex].value);"}) %>
   </div>
+  
+  <div id="myDIV" style="display: none">
+    <div class="field">
+      <%= f.label :"Shop Image" %><br />
+      <%= f.file_field :image %>
+    </div>
 
-  <div class="field">
-    <%= f.label :"Shop Name" %>
-    <em>(only for Venders)</em><br />
-    <%= f.text_field :shop %>
+    <div class="field">
+      <%= f.label :"Shop Name" %><br />
+      <%= f.text_field :shop %>
+    </div>
   </div>
+  
+  <script>
+    function callMe(str)
+    {
+      var x = document.getElementById("myDIV");
+      if (str === "Vendor") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+  </script>
 
   <div class="field">
     <%= f.label :password %>

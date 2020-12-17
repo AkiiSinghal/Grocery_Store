@@ -3,6 +3,12 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
+  <% if current_user.admin == false && current_user.user_type == "Vendor" %>
+    <div>
+      <%= image_tag(f.object.thumbnail()) %>
+    </div>
+  <% end %>
+
   <div class="field">
     <%= f.label :"First Name" %><br />
     <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name" %>
@@ -30,6 +36,11 @@
 
   <% usertype = f.object.user_type %>
   <% if usertype == "Vendor" %>
+    <div class="field">
+      <%= f.label :"Change Shop Image" %><br />
+      <%= f.file_field :image %>
+    </div>
+
     <div class="field">
       <%= f.label :"Shop Name" %><br />
       <%= f.text_field :shop %>

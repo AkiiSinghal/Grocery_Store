@@ -2,6 +2,7 @@
 
 <% @shops.each do |shop| %>
     <a href="/shops/<%= shop.id %>">
+        <%= image_tag(shop.thumbnail()) %>
         <%= shop.shop %>
     </a>
 <% end %>
