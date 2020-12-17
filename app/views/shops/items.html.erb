@@ -12,12 +12,14 @@
 
   <tbody>
     <% @items.each do |item| %>
+      <% if item.quantity > 0 %>
         <tr>
           <td><a href="/shops/<%= item.user_id %>/<%= item.id %>"><%= item.name %></a></td>
           <td><%= image_tag(item.thumbnail(0)) %></td>
           <td><%= item.description %></td>
           <td><%= item.price %></td>
         </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

@@ -13,10 +13,11 @@ class CartItemsController < ApplicationController
     price = @item.price
     @cart_item = CartItem.where("user_id = #{userid} and item_id = #{itemid}")
     if @cart_item.count == 0
+      available = @item.quantity
       name = @item.name
       description = @item.description
       quantity = 1
-      CartItem.create(:name=>name, :description=>description, :price=>price, :quantity=>quantity, :user_id=>userid, :item_id=>itemid)
+      CartItem.create(:name=>name, :description=>description, :price=>price, :quantity=>quantity, :user_id=>userid, :item_id=>itemid, :available=>available)
     else
       @cart_item = @cart_item.first
       @cart_item.quantity += 1
@@ -34,10 +35,11 @@ class CartItemsController < ApplicationController
     price = @item.price
     @cart_item = CartItem.where("user_id = #{userid} and item_id = #{itemid}")
     if @cart_item.count == 0
+      available = @item.quantity
       name = @item.name
       description = @item.description
       quantity = 1
-      CartItem.create(:name=>name, :description=>description, :price=>price, :quantity=>quantity, :user_id=>userid, :item_id=>itemid)
+      CartItem.create(:name=>name, :description=>description, :price=>price, :quantity=>quantity, :user_id=>userid, :item_id=>itemid, :available=>available)
     else
       @cart_item = @cart_item.first
       @cart_item.quantity += 1

@@ -45,6 +45,12 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       if @item.update(item_params)
+        itemid = @item.id
+        @cartitems =  CartItem.where("item_id = #{itemid}")
+        @cartitems.each do |cartitem|
+          cartitem.available = @item.quantity
+          cartitem.save
+        end
         format.html { redirect_to @item, notice: 'Item was successfully updated.' }
         format.json { render :show, status: :ok, location: @item }
       else
