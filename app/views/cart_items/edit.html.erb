@@ -36,14 +36,14 @@
 
     <tbody>
         <tr>
-        <td><%= :name %></td>
-        <td><%= :description %></td>
+        <td><%= @item.name %></td>
+        <td><%= @item.description %></td>
         <td>
             <div class="field">
                 <%= form.number_field :quantity %>
             </div>
         </td>
-        <td><%= :price %></td>
+        <td><%= @item.price %></td>
         <td>
             <div class="actions">
                 <%= form.submit :Update %>

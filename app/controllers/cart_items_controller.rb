@@ -9,6 +9,7 @@ class CartItemsController < ApplicationController
   def add
     @item = Item.find(params[:id])
     itemid = @item.id
+    itemuserid = @item.user_id
     userid = current_user.id
     price = @item.price
     @cart_item = CartItem.where("user_id = #{userid} and item_id = #{itemid}")
@@ -24,8 +25,7 @@ class CartItemsController < ApplicationController
       @cart_item.price += price
       @cart_item.save
     end
-    session[:return_to] ||= request.referer
-    redirect_to session.delete(:return_to)
+    redirect_to "/shops/#{itemuserid}/#{itemid}"
   end
 
   def buy

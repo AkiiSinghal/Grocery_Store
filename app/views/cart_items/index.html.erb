@@ -14,7 +14,7 @@
   <tbody>
     <% total = 0 %>
     <% @items.each do |item| %>
-      <% if item.user == current_user %>
+      <% if item.user == current_user && item.quantity>0 %>
         <tr>
           <td><%= item.name %></td>
           <td><%= item.description %></td>
