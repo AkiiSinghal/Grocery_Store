@@ -1,25 +1,22 @@
 <h1>Items</h1>
+<br>
 
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Image</th>
-      <th>Description</th>
-      <th>Price</th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div class="container">
+  <div class="row">
     <% @items.each do |item| %>
       <% if item.quantity > 0 %>
-        <tr>
-          <td><a href="/shops/<%= item.user_id %>/<%= item.id %>"><%= item.name %></a></td>
-          <td><%= image_tag(item.thumbnail(0)) %></td>
-          <td><%= item.description %></td>
-          <td><%= item.price %></td>
-        </tr>
+        <a href="/shops/<%= item.user_id %>/<%= item.id %>">
+        <div class="card" style="width: 18.8rem; margin: 10px;">
+          <%= image_tag(item.thumbnail(0)) %>
+          <div class="card-body">
+            <h5 class="card-title"><%= item.name %></h5>
+        </a>
+            <p>
+              <%= item.description %><br>
+            </p>
+            <strong>Price: &#8377;</strong><%= item.price %>
+          </div>
+        </div>
       <% end %>
     <% end %>
   </tbody>

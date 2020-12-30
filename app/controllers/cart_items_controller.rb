@@ -4,6 +4,12 @@ class CartItemsController < ApplicationController
 
   def index
     @items = CartItem.all
+    if @items.count == 0
+      redirect_to empty_cart_item_path
+    end
+  end
+
+  def empty
   end
 
   def add

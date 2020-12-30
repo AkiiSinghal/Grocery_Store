@@ -1,21 +1,21 @@
-<p>
-  <strong>Name:</strong>
-  <%= @item.name %>
-</p>
-
-<% (0...@item.images.count).each do |image| %>
-  <%= image_tag(@item.thumbnail(image)) %>
-<% end %>
-
-<p>
-  <strong>Description:</strong>
-  <%= @item.description %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @item.price %>
-</p>
-
-<%= link_to "Add to Cart", add_cart_item_path(:id=>@item) %>
-<%= link_to "Buy Now", buy_cart_item_path(:id=>@item) %>
+<div class="jumbotron">
+  <% (0...@item.images.count).each do |image| %>
+    <%= image_tag(@item.thumbnail(image), style:"margin: 10px;") %>
+  <% end %>
+  <br><br>
+  <h1 class="display-4">
+    <%= @item.name %>
+  </h1>
+  <p class="lead">
+    <%= @item.description %><br>
+    <strong>Price: &#8377;</strong>
+    <%= @item.price %>
+  </p>
+  <br>
+  <%= link_to add_cart_item_path(:id=>@item), class:"btn btn-warning text-white" do %>
+    <i class="fas fa-shopping-cart"></i> Add to Cart
+  <% end %>
+  <%= link_to buy_cart_item_path(:id=>@item), class:"btn btn-success" do %>
+    <i class="fas fa-bolt"></i> Buy Now
+  <% end %>
+</div>

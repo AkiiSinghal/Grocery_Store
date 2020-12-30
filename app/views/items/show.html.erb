@@ -1,26 +1,20 @@
-<p>
-  <strong>Name:</strong>
-  <%= @item.name %>
-</p>
-
-<% (0...@item.images.count).each do |image| %>
-  <%= image_tag(@item.thumbnail(image)) %>
-<% end %>
-
-<p>
-  <strong>Description:</strong>
-  <%= @item.description %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @item.price %>
-</p>
-
-<p>
-  <strong>Quantity:</strong>
-  <%= @item.quantity %>
-</p>
-
-<%= link_to 'Edit', edit_item_path(@item) %> |
-<%= link_to 'Back', items_path %>
+<div class="jumbotron">
+  <% (0...@item.images.count).each do |image| %>
+    <%= image_tag(@item.thumbnail(image)) %>
+  <% end %>
+  <br><br>
+  <h1 class="display-4">
+    <%= @item.name %>
+  </h1>
+  <p class="lead">
+    <%= @item.description %><br>
+    <strong>Price: &#8377;</strong>
+    <%= @item.price %><br>
+    <strong>Quantity: </strong>
+    <%= @item.quantity %>
+  </p>
+  <br>
+  <%= link_to 'Edit', edit_item_path(@item), class:"btn btn-secondary" %>
+  <%= link_to 'Destroy', @item, method: :delete, class:'btn btn-danger', data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Back', items_path, class:"btn btn-dark" %>
+</div>

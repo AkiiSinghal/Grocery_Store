@@ -1,0 +1,61 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <%= link_to 'GroceryStore', root_url, class:"navbar-brand" %>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <%= form_tag root_path, :method=>"get", :class=>"form-inline my-2 my-lg-0" do %>
+                <%= text_field_tag :search,params[:search], class:"form-control mr-sm-2", placeholder:"Search" %>
+                <%= submit_tag("Search",:name => nil, :class => "btn btn-outline-light my-2 my-sm-0") %>
+            <%end%>
+            <ul class="navbar-nav ml-auto">
+                <% if user_signed_in? %>
+                    <% usertype = current_user.user_type %>
+                    <% if usertype == "Vendor" %>
+                        <li class="nav-item active">
+                            <%= link_to 'Items', items_path ,class:"nav-link"%>
+                        </li>
+                        <li class="nav-item active">
+                            <%= link_to 'Add Item', new_item_path ,class:"nav-link"%>
+                        </li>
+                    <% end %>
+                    <% if usertype == "Customer" && current_user.admin !=true %>
+                        <li class="nav-item active">
+                            <%= link_to orders_path ,class:"nav-link" do %>
+                                <i class="fas fa-shopping-bag"></i> Orders
+                            <% end %>
+                        </li>
+                        <li class="nav-item active">
+                            <%= link_to cart_items_path,class:"nav-link" do %>
+                                <i class="fas fa-shopping-cart"></i> Cart
+                            <% end %>
+                        </li>
+                    <% end %>
+                    <li class="nav-item active">
+                        <%= link_to edit_user_registration_path, class:"nav-link" do %>
+                            <i class="fas fa-user-circle"></i> Edit Profile
+                        <% end %>
+                    </li>
+                    <li class="nav-item active">
+                        <%= link_to destroy_user_session_path, method: :delete, class:"nav-link" do %>
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        <% end %>
+                    </li>
+                <% else %>
+                    <li class="nav-item active">
+                        <%= link_to new_user_registration_path, class:"nav-link" do %>
+                            <i class="fas fa-user-plus"></i> Sign Up
+                        <% end %>
+                    </li>
+                    <li class="nav-item active">
+                        <%= link_to new_user_session_path, class:"nav-link" do %>
+                            <i class="fas fa-sign-in-alt"></i> Sign In
+                        <% end %>
+                    </li>
+                <% end %>
+            </ul>
+        </div>
+    </div>
+</nav>

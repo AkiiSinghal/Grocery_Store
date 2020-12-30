@@ -1,14 +1,15 @@
 <h1>Orders</h1>
+<br>
 
-<table>
-  <thead>
+<table class="table">
+  <thead class="thead-light">
     <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Quantity</th>
-      <th>Price</th>
-      <th>Status</th>
-      <th colspan="1"></th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Price</th>
+      <th scope="col">Status</th>
+      <th scope="col" colspan="1"></th>
     </tr>
   </thead>
 
@@ -20,12 +21,12 @@
             <%= form.number_field :price, type: :hidden %>
             <%= form.number_field :quantity, type: :hidden %>
             <tr>
-                <td><%= order.name %></td>
+                <th scope="row"><%= order.name %></th>
                 <td><%= order.description %></td>
                 <td><%= order.quantity %></td>
                 <td><%= order.price %></td>
                 <td><%= form.select(:status, options_for_select([['Placed', 'Placed'], ['In Transit', 'In Transit'], ['Delivered', 'Delivered']], :selected => form.object.status)) %></td>
-                <td><%= form.submit :Update %></td>
+                <td><%= form.submit :Update, class:"btn btn-outline-success btn-sm" %></td>
             </tr>
             <%= form.number_field :user_id, type: :hidden %>
             <%= form.number_field :item_id, type: :hidden %>

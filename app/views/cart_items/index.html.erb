@@ -1,13 +1,14 @@
 <h1>Cart</h1>
+<br>
 
-<table>
-  <thead>
+<table class="table">
+  <thead class="thead-light">
     <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Quantity</th>
-      <th>Price</th>
-      <th colspan="4"></th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Price</th>
+      <th scope="col" colspan="2"></th>
     </tr>
   </thead>
 
@@ -15,26 +16,29 @@
     <% total = 0 %>
     <% @items.each do |item| %>
       <% if item.user == current_user && item.quantity>0 %>
-        <tr>
-          <td><%= item.name %></td>
-          <td><%= item.description %></td>
-          <td><%= item.quantity %></td>
-          <td><%= item.price %></td>
-          <td><a href="/shops/<%= item.user_id %>/<%= item.item_id %>">Show</a></td>
-          <td><%= link_to 'Edit', edit_cart_item_path(item) %></td>
-          <td><%= link_to 'Destroy', cart_item_path(item), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          <td>
+        <%= form_with model: item do |form| %>
+          <%= form.text_field :name, type: :hidden %>
+          <%= form.text_area :description, style: "#{'display:none'}" %>
+          <%= form.number_field :price, type: :hidden %>
+          <%= form.number_field :quantity, type: :hidden %>
+          <tr>
+            <th scope="row"><a href="/shops/<%= item.user_id %>/<%= item.item_id %>"><%= item.name %></a></th>
+            <td><%= item.description %></td>
+            <td><%= form.number_field :quantity, class:"form-control" %></td>
+            <td><%= item.price %></td>
+            <td><%= form.submit :Update, class:"btn btn-outline-success btn-sm" %></td>
+            <td><%= link_to 'Destroy', cart_item_path(item), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger btn-sm" %></td>
             <% if item.quantity > item.available %>
-              <p style="color: red">Available = <%= item.available %></p>
+              <td><p style="color: red">Available = <%= item.available %></p></td>
             <% end %>
-          </td>
-        </tr>
-        <% total += item.price %>
+          </tr>
+          <% total += item.price %>
+        <% end %>
       <% end %>
     <% end %>
     <tr>
-        <td colspan="3">Total</td>
-        <td><%= total %></td>
+        <th colspan="3">Total</th>
+        <td colspan="2"><%= total %></td>
         <td></td>
     </tr>
   </tbody>

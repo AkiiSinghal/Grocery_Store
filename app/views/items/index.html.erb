@@ -1,34 +1,26 @@
 <h1>Items</h1>
+<br>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Image</th>
-      <th>Description</th>
-      <th>Price</th>
-      <th>Quantity</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div class="container">
+  <div class="row">
     <% @items.each do |item| %>
       <% if item.user == current_user %>
-        <tr>
-          <td><%= item.name %></td>
-          <td><%= image_tag(item.thumbnail(0)) %></td>
-          <td><%= item.description %></td>
-          <td><%= item.price %></td>
-          <td><%= item.quantity %></td>
-          <td><%= link_to 'Show', item %></td>
-          <td><%= link_to 'Edit', edit_item_path(item) %></td>
-          <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+        <%= link_to item, class: 'class' do %>
+          <div class="card" style="width: 18.8rem; margin: 10px;">
+            <%= image_tag(item.thumbnail(0)) %>
+            <div class="card-body">
+              <h5 class="card-title"><%= item.name %></h5>
+        <% end %>
+              <p>
+                Price: &#8377;<%= item.price %><br>
+                Quantity: <%= item.quantity %>
+              </p>
+            </div>
+          </div>
       <% end %>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>
 
 <br>
 

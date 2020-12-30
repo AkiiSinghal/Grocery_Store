@@ -1,20 +1,19 @@
+<h1>Shops</h1>
+<br>
 
-
-<% if user_signed_in? && current_user.user_type =='Vendor'%>
-
-<% else %>
-    <h1>Shops</h1>
-    <%= form_tag root_path, :method=>"get" do %>
-    <%= label_tag(:search ,"Search by Shops:") %>
-    <%= text_field_tag :search,params[:search]%>
-    <%=submit_tag("Search",:name => nil)%>
-    <%end%>
+<div class="container">
+  <div class="row">
     <% @shops.each do |shop| %>
     <a href="/shops/<%= shop.id %>">
-        <%= image_tag(shop.thumbnail()) %>
-        <%= shop.shop %>
+        <div class="card" style="width: 18.8rem; margin: 10px;">
+            <%= image_tag(shop.thumbnail()) %>
+            <div class="card-body">
+              <h5 class="card-title"><%= shop.shop %></h5>
+            </div>
+        </div>
     </a>
     <% end %>
-<% end %>
+  </div>
+</div>
 <br/><br/>
 

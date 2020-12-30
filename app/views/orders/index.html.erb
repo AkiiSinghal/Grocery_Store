@@ -1,14 +1,15 @@
 <h1>Orders</h1>
+<br>
 
-<table>
-  <thead>
+<table class="table">
+  <thead class="thead-light">
     <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Quantity</th>
-      <th>Price</th>
-      <th>Status</th>
-      <th colspan="2"></th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Price</th>
+      <th scope="col">Status</th>
+      <th scope="col"></th>
     </tr>
   </thead>
 
@@ -16,13 +17,12 @@
     <% @orders.each do |order| %>
       <% if order.user == current_user %>
         <tr>
-          <td><%= order.name %></td>
+          <th scope="row"><a href="/shops/<%= order.user_id %>/<%= order.item_id %>"><%= order.name %></a></th>
           <td><%= order.description %></td>
           <td><%= order.quantity %></td>
           <td><%= order.price %></td>
           <td><%= order.status %></td>
-          <td><a href="/shops/<%= order.user_id %>/<%= order.item_id %>">Show</a></td>
-          <td><%= link_to 'Cancel', order_path(order), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Cancel', order_path(order), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger btn-sm" %></td>
         </tr>
       <% end %>
     <% end %>
