@@ -15,25 +15,23 @@
   <tbody>
     <% total = 0 %>
     <% @items.each do |item| %>
-      <% if item.user == current_user && item.quantity>0 %>
-        <%= form_with model: item do |form| %>
-          <%= form.text_field :name, type: :hidden %>
-          <%= form.text_area :description, style: "#{'display:none'}" %>
-          <%= form.number_field :price, type: :hidden %>
-          <%= form.number_field :quantity, type: :hidden %>
-          <tr>
-            <th scope="row"><a href="/shops/<%= item.user_id %>/<%= item.item_id %>"><%= item.name %></a></th>
-            <td><%= item.description %></td>
-            <td><%= form.number_field :quantity, class:"form-control" %></td>
-            <td><%= item.price %></td>
-            <td><%= form.submit :Update, class:"btn btn-outline-success btn-sm" %></td>
-            <td><%= link_to 'Destroy', cart_item_path(item), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger btn-sm" %></td>
-            <% if item.quantity > item.available %>
-              <td><p style="color: red">Available = <%= item.available %></p></td>
-            <% end %>
-          </tr>
-          <% total += item.price %>
-        <% end %>
+      <%= simple_form_for(item) do |form| %>
+        <%= form.text_field :name, type: :hidden %>
+        <%= form.text_area :description, style: "#{'display:none'}" %>
+        <%= form.number_field :price, type: :hidden %>
+        <%= form.number_field :quantity, type: :hidden %>
+        <tr>
+          <th scope="row"><a href="/shops/<%= item.user_id %>/<%= item.item_id %>"><%= item.name %></a></th>
+          <td><%= item.description %></td>
+          <td><%= form.number_field :quantity, class:"form-control" %></td>
+          <td><%= item.price %></td>
+          <td><%= form.button :submit, class:"btn btn-outline-success btn-sm" %></td>
+          <td><%= link_to 'Destroy', cart_item_path(item), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger btn-sm" %></td>
+          <% if item.quantity > item.available %>
+            <td><p style="color: red">Available = <%= item.available %></p></td>
+          <% end %>
+        </tr>
+        <% total += item.price %>
       <% end %>
     <% end %>
     <tr>
@@ -45,4 +43,4 @@
 </table>
 
 <br/>
-<%= link_to 'Checkout', checkout_order_path %>
+<%= link_to 'Place Order', checkout_order_path, class:"btn btn-success" %>

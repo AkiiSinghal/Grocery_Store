@@ -9,13 +9,13 @@
       <th scope="col">Quantity</th>
       <th scope="col">Price</th>
       <th scope="col">Status</th>
-      <th scope="col" colspan="1"></th>
+      <th scope="col"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @orders.each do |order| %>
-        <%= form_with model: order do |form| %>
+        <%= simple_form_for(order) do |form| %>
             <%= form.text_field :name, type: :hidden %>
             <%= form.text_area :description, style: "#{'display:none'}" %>
             <%= form.number_field :price, type: :hidden %>
@@ -26,7 +26,7 @@
                 <td><%= order.quantity %></td>
                 <td><%= order.price %></td>
                 <td><%= form.select(:status, options_for_select([['Placed', 'Placed'], ['In Transit', 'In Transit'], ['Delivered', 'Delivered']], :selected => form.object.status)) %></td>
-                <td><%= form.submit :Update, class:"btn btn-outline-success btn-sm" %></td>
+                <td><%= form.button :submit, class:"btn btn-outline-success btn-sm" %></td>
             </tr>
             <%= form.number_field :user_id, type: :hidden %>
             <%= form.number_field :item_id, type: :hidden %>

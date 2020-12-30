@@ -15,16 +15,14 @@
 
   <tbody>
     <% @orders.each do |order| %>
-      <% if order.user == current_user %>
-        <tr>
-          <th scope="row"><a href="/shops/<%= order.user_id %>/<%= order.item_id %>"><%= order.name %></a></th>
-          <td><%= order.description %></td>
-          <td><%= order.quantity %></td>
-          <td><%= order.price %></td>
-          <td><%= order.status %></td>
-          <td><%= link_to 'Cancel', order_path(order), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger btn-sm" %></td>
-        </tr>
-      <% end %>
+      <tr>
+        <th scope="row"><a href="/shops/<%= order.user_id %>/<%= order.item_id %>"><%= order.name %></a></th>
+        <td><%= order.description %></td>
+        <td><%= order.quantity %></td>
+        <td><%= order.price %></td>
+        <td><%= order.status %></td>
+        <td><%= link_to 'Cancel', order_path(order), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger btn-sm" %></td>
+      </tr>
     <% end %>
   </tbody>
 </table>

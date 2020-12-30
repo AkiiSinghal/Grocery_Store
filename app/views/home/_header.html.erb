@@ -1,15 +1,24 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-        <%= link_to 'GroceryStore', root_url, class:"navbar-brand" %>
+        <%= link_to 'GroceryStore', root_url, data: { turbolinks: false }, class:"navbar-brand" %>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <%= form_tag root_path, :method=>"get", :class=>"form-inline my-2 my-lg-0" do %>
-                <%= text_field_tag :search,params[:search], class:"form-control mr-sm-2", placeholder:"Search" %>
-                <%= submit_tag("Search",:name => nil, :class => "btn btn-outline-light my-2 my-sm-0") %>
-            <%end%>
+            <% if user_signed_in? %>
+                <% if current_user.admin == false && current_user.user_type == "Customer" %>
+                    <%= form_tag root_path, :method=>"get", :class=>"form-inline my-2 my-lg-0" do %>
+                        <%= text_field_tag :search,params[:search], class:"form-control mr-sm-2", placeholder:"Search for shop" %>
+                        <%= submit_tag("Search",:name => nil, :class => "btn btn-outline-light my-2 my-sm-0") %>
+                    <%end%>
+                <% end %>
+            <% else %>
+                <%= form_tag root_path, :method=>"get", :class=>"form-inline my-2 my-lg-0" do %>
+                    <%= text_field_tag :search,params[:search], class:"form-control mr-sm-2", placeholder:"Search for shop" %>
+                    <%= submit_tag("Search",:name => nil, :class => "btn btn-outline-light my-2 my-sm-0") %>
+                <%end%>
+            <% end %>
             <ul class="navbar-nav ml-auto">
                 <% if user_signed_in? %>
                     <% usertype = current_user.user_type %>
@@ -23,12 +32,12 @@
                     <% end %>
                     <% if usertype == "Customer" && current_user.admin !=true %>
                         <li class="nav-item active">
-                            <%= link_to orders_path ,class:"nav-link" do %>
+                            <%= link_to orders_path, class:"nav-link" do %>
                                 <i class="fas fa-shopping-bag"></i> Orders
                             <% end %>
                         </li>
                         <li class="nav-item active">
-                            <%= link_to cart_items_path,class:"nav-link" do %>
+                            <%= link_to cart_items_path, data: { turbolinks: false }, class:"nav-link" do %>
                                 <i class="fas fa-shopping-cart"></i> Cart
                             <% end %>
                         </li>

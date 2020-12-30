@@ -3,7 +3,7 @@ class CartItemsController < ApplicationController
   before_action :correct_user, except: []
 
   def index
-    @items = CartItem.all
+    @items = CartItem.where(:user_id => current_user.id).all
     if @items.count == 0
       redirect_to empty_cart_item_path
     end
@@ -55,10 +55,6 @@ class CartItemsController < ApplicationController
     redirect_to cart_items_path
   end
 
-  def edit
-    @item = CartItem.find(params[:id])
-  end
-
   def update
     @item = CartItem.find(params[:id])
     updateditems = item_params
@@ -67,7 +63,7 @@ class CartItemsController < ApplicationController
     if @item.update(updateditems)
       redirect_to cart_items_path
     else
-      render :edit
+      redirect_to cart_items_path
     end
   end
 

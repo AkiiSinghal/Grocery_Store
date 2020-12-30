@@ -8,10 +8,7 @@ class ShopsController < ApplicationController
         redirect_to items_path
       end
     end
-    
     @shops = User.where("user_type = 'Vendor'").search(params[:search]).all
-
-
   end
 
   def items

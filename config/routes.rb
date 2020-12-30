@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'cart_items/empty', as: 'empty_cart_item'
   resources :cart_items
   get 'orders/checkout', as: 'checkout_order'
+  get 'orders/empty', as: 'empty_order'
   resources :orders
   #root 'home#index'
   devise_for :users, :controllers => {registrations: 'registrations'}

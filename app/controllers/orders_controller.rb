@@ -3,7 +3,10 @@ class OrdersController < ApplicationController
   before_action :correct_user, except: [:update]
 
   def index
-    @orders = Order.where("quantity > 0").all
+    @orders = Order.where(user_id: current_user.id).all
+    if @orders.count == 0
+      redirect_to empty_order_path
+    end
   end
 
   def checkout
@@ -46,6 +49,8 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     if @order.update(order_params)
       redirect_to admin_index_path
+    else
+      redirect_to orders_path
     end
   end
 
