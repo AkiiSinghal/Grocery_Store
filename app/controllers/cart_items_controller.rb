@@ -58,12 +58,16 @@ class CartItemsController < ApplicationController
   def update
     @item = CartItem.find(params[:id])
     updateditems = item_params
-    price = @item.price / @item.quantity
-    updateditems["price"] = price * updateditems["quantity"].to_i
-    if @item.update(updateditems)
-      redirect_to cart_items_path
+    if updateditems["quantity"].to_i < 1
+      redirect_to cart_items_path, notice: "Quantity should be greater than or eqaul to 1."
     else
-      redirect_to cart_items_path
+      price = @item.price / @item.quantity
+      updateditems["price"] = price * updateditems["quantity"].to_i
+      if @item.update(updateditems)
+        redirect_to cart_items_path
+      else
+        redirect_to cart_items_path
+      end
     end
   end
 
