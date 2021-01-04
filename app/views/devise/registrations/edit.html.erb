@@ -34,7 +34,7 @@
       
       <div class="form-group">
         <%= f.label :"Phone Number" %><br />
-        <%= f.text_field :phone, class:"form-control", autocomplete: "phone" %>
+        <%= f.number_field :phone, class:"form-control", min: 1000000000, max: 9999999999, autocomplete: "phone" %>
       </div>
 
       <% usertype = f.object.user_type %>
