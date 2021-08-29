@@ -1,24 +1,3 @@
-# README
+# Grocery-Store
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Grocery Delivery Website is an online web application to provide complete solutions for Vendors (Supermarket Owners) and customers. Owners can set up their online shops in the page by creating an account and add the items available in the shop to be visible to customers. They can also modify the items list in their shops. Customers can purchase items from different shops through their account. The processing of orders placed by the customers is administrated by an admin through his account. He is enabled to change the status of orders which can be be tracked by the customers.
